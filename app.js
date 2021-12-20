@@ -28,13 +28,35 @@ function getRandomPhraseAsArray (arr){
 const randomPhrase = getRandomPhraseAsArray(phrases)
 
 function addPhraseToDisplay (arr){
-for (let i = 0; i > arr.length; i++ )
-//document.createElement(li)
-console.log(i)
+    for (let i = 0; i < arr.length; i++){
+        let letter = arr[i]
+        let li = document.createElement('li')
+        li.innerHTML = letter
+        phrase.appendChild(li)
+        console.log(li)
+        if(li.textContent === " "){
+            li.className = "space"
+        }
+        else{
+            li.className = "letter"
+        }
+    }
+}
+
+function checkLetter(){
+    const letter = document.getElementsByClassName('letter')
+    console.log(letter)
 }
 
 
+qwerty.addEventListener('click', () => {
+    if(className !== "chosen"){
+        qwerty.button.className = "chosen"
+    }
+})
 
 
+addPhraseToDisplay(randomPhrase)
+checkLetter()
 
-console.log(randomPhrase);
+//console.log(randomPhrase);
