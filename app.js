@@ -33,7 +33,6 @@ function addPhraseToDisplay (arr){
         let li = document.createElement('li')
         li.innerHTML = letter
         phrase.appendChild(li)
-        console.log(li)
         if(li.textContent === " "){
             li.className = "space"
         }
@@ -43,20 +42,31 @@ function addPhraseToDisplay (arr){
     }
 }
 
-function checkLetter(){
+function checkLetter(btn){
     const letter = document.getElementsByClassName('letter')
-    console.log(letter)
+    let match = null;
+    let text = letter.textContent
+
+    for (let i = 0; i < letter.length; i++){
+        if( letter[i].textContent === btn.textContent){
+            letter[i].className = "show"
+            match = btn.textContent
+        }
+    }
+    return match
 }
 
 
-qwerty.addEventListener('click', () => {
-    if(className !== "chosen"){
-        qwerty.button.className = "chosen"
+qwerty.addEventListener('click', (e) => {
+    if(e.target.tagName === 'BUTTON' || e.target.className !== "chosen"){
+        e.target.className = "chosen"
+        let results = checkLetter(e.target)
+
     }
+  
 })
 
 
 addPhraseToDisplay(randomPhrase)
-checkLetter()
 
 //console.log(randomPhrase);
