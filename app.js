@@ -4,6 +4,7 @@ let missed = 0;
 const overlay = document.getElementById('overlay');
 const start = document.querySelector('.btn__reset')
 
+
 const phrases = [
     "raining cats and dogs",
     "let the cat out of the bag",
@@ -43,27 +44,34 @@ function addPhraseToDisplay (arr){
 }
 
 function checkLetter(btn){
-    const letter = document.getElementsByClassName('letter')
-    let match = null;
-    let text = letter.textContent
+    const letter = document.querySelectorAll('.letter')
+    let match = 'null';
 
     for (let i = 0; i < letter.length; i++){
         if( letter[i].textContent === btn.textContent){
-            letter[i].className = "show"
-            match = btn.textContent
+            letter[i].className = "show";
+            let match = btn.textContent;
         }
     }
-    return match
+    return match;
 }
 
 
 qwerty.addEventListener('click', (e) => {
-    if(e.target.tagName === 'BUTTON' || e.target.className !== "chosen"){
+    if(e.target.tagName === 'BUTTON' && e.target.className !== "chosen"){
         e.target.className = "chosen"
         let results = checkLetter(e.target)
+        if(results === 'null'){
+            //remove heart #scoreboard
+            console.log(missed)
+            let hearts = document.querySelectorAll('img')
+            console.log(hearts);
+            hearts[missed].setAttribute('src', "images/lostHeart.png")
+            missed++
+        }
 
     }
-  
+
 })
 
 
