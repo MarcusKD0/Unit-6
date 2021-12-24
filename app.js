@@ -28,58 +28,74 @@ function getRandomPhraseAsArray (arr){
 const randomPhrase = getRandomPhraseAsArray(phrases)
 
 function addPhraseToDisplay (arr){
-    for (let i = 0; i < arr.length; i++){
-        let letter = arr[i]
-        let li = document.createElement('li')
-        li.innerHTML = letter
-        phrase.appendChild(li)
-        if(li.textContent === " "){
-            li.className = "space"
-        }
-        else{
-            li.className = "letter"
-        }
-    }
-}
+      for (let i = 0; i < arr.length; i++){
+          let letter = arr[i]
+          let li = document.createElement('li')
+          li.innerHTML = letter
+          phrase.appendChild(li)
+            if(li.textContent === " "){
+                li.className = "space"
+          }
+            else{
+                li.className = "letter"
+          }
+      }
+  }
 
 function checkLetter(btn){
-    const li = document.querySelectorAll('li')
-    let match = null;
+        const li = document.querySelectorAll('li')
+        let match = null;
 
-    for (let i = 0; i < li.length; i++){
-        if( li[i].textContent === btn.textContent){
-            li[i].className = "show";
-            let match = btn.textContent;
-            console.log(btn.textContent);
+        for (let i = 0; i < li.length; i++){
+            if( li[i].textContent === btn.textContent){
+                li[i].classList.add("show");
+                match = btn.textContent;
+            }
         }
+        return match;
     }
-    return match;
+function checkWin(){
+  let letter = document.querySelectorAll('.letter')
+  let now = document.querySelectorAll('.show')
+    if (missed > 4) {
+        overlay.className = 'lose';
+        overlay.style.display = 'flex'
+        const title = document.querySelector('.title')
+        title.textContent = 'Game Over'
+        restartGame();
+      }
+  else if (now.length === letter.length) {
+        overlay.className = 'win';
+        overlay.style.display = 'flex'
+        const title = document.querySelector('.title')
+        title.textContent = 'You Won!'
+        restartGame()
+    }
 }
-
 
 qwerty.addEventListener('click', (e) => {
-    if(e.target.tagName === 'BUTTON' && e.target.className !== "chosen"){
-        e.target.className = "chosen"
-        let check = checkLetter(e.target)
-        if(check === null && missed < 5){
-//remove heart #scoreboard
-            console.log(missed)
-            let hearts = document.querySelectorAll('img')
-            console.log(hearts);
-            hearts[missed].setAttribute('src', "images/lostHeart.png")
-            missed++
-        }
-        else if (missed === 5) {
-          console.log('ok')
-        }
+        if(e.target.tagName === 'BUTTON' && e.target.className !== "chosen"){
+            e.target.className = "chosen"
+            let check = checkLetter(e.target)
+        if(check === null){
+                let hearts = document.querySelectorAll('img');
+                hearts[missed].setAttribute('src', "images/lostHeart.png")
+                missed++
     }
+          checkWin();
+}})
 
-})
-
-if (missed === 5) {
-  console.log('ok');
-}
 
 addPhraseToDisplay(randomPhrase)
 
-//console.log(randomPhrase);
+function restartGame (){
+  start.addEventListener('click', ()=>{
+    phrase.innerHTML = ''
+
+
+//after resetting
+    addPhraseToDisplay(randomPhrase)
+  })
+
+
+}
