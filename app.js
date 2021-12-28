@@ -3,6 +3,7 @@ const phrase = document.getElementById('phrase');
 let missed = 0;
 const overlay = document.getElementById('overlay');
 const start = document.querySelector('.btn__reset')
+const ul = phrase.querySelector('ul')
 
 const phrases = [
     "raining cats and dogs",
@@ -32,7 +33,7 @@ function addPhraseToDisplay (arr){
           let letter = arr[i]
           let li = document.createElement('li')
           li.innerHTML = letter
-          phrase.appendChild(li)
+          ul.appendChild(li)
             if(li.textContent === " "){
                 li.className = "space"
           }
@@ -62,14 +63,12 @@ function checkWin(){
         overlay.style.display = 'flex'
         const title = document.querySelector('.title')
         title.textContent = 'Game Over'
-        restartGame();
       }
   else if (now.length === letter.length) {
         overlay.className = 'win';
         overlay.style.display = 'flex'
         const title = document.querySelector('.title')
         title.textContent = 'You Won!'
-        restartGame()
     }
 }
 
@@ -87,15 +86,3 @@ qwerty.addEventListener('click', (e) => {
 
 
 addPhraseToDisplay(randomPhrase)
-
-function restartGame (){
-  start.addEventListener('click', ()=>{
-    phrase.innerHTML = ''
-
-
-//after resetting
-    addPhraseToDisplay(randomPhrase)
-  })
-
-
-}
