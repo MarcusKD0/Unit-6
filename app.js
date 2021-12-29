@@ -73,8 +73,9 @@ function checkWin(){
 }
 
 qwerty.addEventListener('click', (e) => {
-        if(e.target.tagName === 'BUTTON' && e.target.className !== "chosen"){
+        if(e.target.tagName === 'BUTTON'){
             e.target.className = "chosen"
+            e.target.disabled = true;
             let check = checkLetter(e.target)
         if(check === null){
                 let hearts = document.querySelectorAll('img');
